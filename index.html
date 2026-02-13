@@ -125,6 +125,15 @@
             box-shadow: 0 0 30px var(--glow);
         }
 
+        .stat-card.highlight {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.1) 100%);
+        }
+
+        .stat-card.highlight .stat-value {
+            color: var(--accent-green);
+        }
+
         .stat-value {
             font-size: 2rem;
             font-weight: 700;
@@ -341,6 +350,27 @@
             color: var(--text-primary);
         }
 
+        .time-saved {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .time-saved-value {
+            display: block;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 4px;
+        }
+
+        .time-saved-calc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         /* Footer */
         footer {
             padding: 24px 0;
@@ -429,7 +459,7 @@
             try {
                 const response = await fetch('data.json');
                 const data = await response.json();
-                renderStats(data.stats);
+                renderStats(data.stats, data.projects);
                 renderActivity(data.activity);
                 renderProjects(data.projects);
                 document.getElementById('update-time').textContent =
@@ -439,17 +469,24 @@
             }
         }
 
-        function renderStats(stats) {
+        function renderStats(stats, projects) {
             const grid = document.getElementById('stats-grid');
+
+            // Calculate total time saved from projects
+            const totalMinutes = projects
+                .filter(p => p.publish !== false && p.timeSaved)
+                .reduce((sum, p) => sum + (p.timeSaved.weeklyMinutes || 0), 0);
+            const totalHours = Math.round(totalMinutes / 60);
+
             const statItems = [
                 { value: stats.projectsLive, label: 'Projects Live' },
                 { value: stats.automationsRunning, label: 'Automations Running' },
                 { value: stats.apiCallsToday, label: 'API Calls/Day' },
-                { value: stats.timeSaved, label: 'Time Saved' }
+                { value: `~${totalHours} hrs`, label: 'Saved/Week', highlight: true }
             ];
 
             grid.innerHTML = statItems.map(stat => `
-                <div class="stat-card">
+                <div class="stat-card ${stat.highlight ? 'highlight' : ''}">
                     <div class="stat-value">${stat.value}</div>
                     <div class="stat-label">${stat.label}</div>
                 </div>
@@ -490,6 +527,11 @@
                     <div class="project-impact">
                         ${project.impact.map(i => `<div class="impact-item">${i}</div>`).join('')}
                     </div>
+                    ${project.timeSaved ? `
+                    <div class="time-saved">
+                        <span class="time-saved-value">⏱ ~${Math.round(project.timeSaved.weeklyMinutes / 60 * 10) / 10} hrs/week</span>
+                        <span class="time-saved-calc">${project.timeSaved.calculation}</span>
+                    </div>` : ''}
                     <div class="project-tech">
                         ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
                     </div>

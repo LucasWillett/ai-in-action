@@ -2,28 +2,32 @@
   "meta": {
     "title": "AI in Action",
     "subtitle": "Automation & AI Projects by Lucas Willett",
-    "lastUpdated": "2026-02-13T12:45:00Z",
+    "lastUpdated": "2026-02-13T21:15:00Z",
     "status": "online"
   },
   "stats": {
     "projectsLive": 4,
     "automationsRunning": 3,
-    "apiCallsToday": "~500",
-    "timeSaved": "Hours/week"
+    "apiCallsToday": "~500"
   },
   "activity": [
     {
-      "timestamp": "2026-02-13T12:30:00Z",
+      "timestamp": "2026-02-13T21:10:00Z",
+      "event": "AI in Action portfolio site launched",
+      "type": "deploy"
+    },
+    {
+      "timestamp": "2026-02-13T20:45:00Z",
       "event": "Deployed Claude Relay multi-agent system",
       "type": "deploy"
     },
     {
-      "timestamp": "2026-02-13T11:00:00Z",
+      "timestamp": "2026-02-13T19:30:00Z",
       "event": "Incident Commander API connected to GPT",
       "type": "integration"
     },
     {
-      "timestamp": "2026-02-13T10:00:00Z",
+      "timestamp": "2026-02-13T18:55:00Z",
       "event": "ChurnZero bot set up as persistent service",
       "type": "deploy"
     }
@@ -43,6 +47,13 @@
         "Consistent messaging across all channels",
         "Draft-then-publish approval workflow"
       ],
+      "timeSaved": {
+        "minutes": 60,
+        "per": "incident",
+        "frequency": "~2/month",
+        "weeklyMinutes": 30,
+        "calculation": "60 min/incident × ~2 incidents/month ÷ 4 weeks"
+      },
       "tech": ["Python", "Flask", "Zendesk API", "Slack SDK", "GPT Actions", "Render"],
       "repo": "https://github.com/LucasWillett/incident-commander",
       "icon": "🚨"
@@ -61,6 +72,13 @@
         "Automated task handoffs",
         "Human-supervised AI collaboration"
       ],
+      "timeSaved": {
+        "minutes": 15,
+        "per": "task",
+        "frequency": "~8/week",
+        "weeklyMinutes": 120,
+        "calculation": "15 min/task × 8 tasks/week"
+      },
       "tech": ["Python", "Flask", "WebSockets", "Multi-Agent"],
       "repo": "https://github.com/LucasWillett/claude-relay",
       "icon": "🔗"
@@ -79,6 +97,13 @@
         "Self-service for sales team",
         "Reduced support burden"
       ],
+      "timeSaved": {
+        "minutes": 10,
+        "per": "query",
+        "frequency": "~15/week",
+        "weeklyMinutes": 150,
+        "calculation": "10 min/query × 15 queries/week"
+      },
       "tech": ["Python", "Slack SDK", "ChurnZero API", "GA4 API", "launchd"],
       "repo": null,
       "icon": "📊"
@@ -97,6 +122,13 @@
         "Catches config errors automatically",
         "Feeds data to other systems"
       ],
+      "timeSaved": {
+        "minutes": 20,
+        "per": "100 URLs",
+        "frequency": "800 URLs/night",
+        "weeklyMinutes": 280,
+        "calculation": "~4 hrs manual work automated nightly × 7 days (but only value-add ~40 min/day)"
+      },
       "tech": ["Python", "Playwright", "Google Sheets API", "launchd"],
       "repo": null,
       "icon": "🔗"
